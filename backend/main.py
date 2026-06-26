@@ -32,6 +32,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://happinama2ide.vercel.app",
+        "https://happinama-ide.vercel.app",
         "http://localhost:5500",
         "http://127.0.0.1:5500"
     ],
