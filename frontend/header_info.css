@@ -1,0 +1,44 @@
+.header-info{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:flex-end;
+    gap:2px;
+    margin-left:auto;
+}
+
+.header-info span{
+    font-family:'Poppins',sans-serif;
+    font-size:13px;
+    font-weight:400;
+    line-height:1.4;
+    text-align:right;
+    letter-spacing:0.2px;
+    white-space:nowrap;
+}
+
+body.dark .header-info span{
+    color:#8b949e;
+}
+
+body.light .header-info span{
+    color:#6b7280;
+}
+
+@media(max-width:768px){
+
+    .header-info{
+        display:flex;
+    }
+
+    .header-info span{
+        font-size:9px;
+    }
+}
+
+@media(max-width:480px){
+
+    .header-info span{
+        font-size:8px;
+    }
+}

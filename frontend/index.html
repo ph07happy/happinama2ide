@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="description" content="happinama IDE — a browser-based coding environment supporting C, C++, Java, Python, and SQL.">
+
+<title>happinama IDE</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="mobile.css">
+<link rel="stylesheet" href="header_info.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        <img
+            src="logo_h.png"
+            alt="happinama IDE"
+            class="header-logo"
+            loading="lazy">
+        <span>IDE</span>
+        
+    </div>
+    <div class="header-info" id="headerInfo">
+    <span id="headerDateTime"></span>
+    <span id="headerWeather"></span>
+</div>
+
+</header>
+
+<main>
+
+    <aside class="sidebar" aria-label="Toolbar">
+        <button
+            class="ide-btn square-btn"
+            id="themeBtn"
+            title="Toggle theme"
+            aria-label="Toggle light/dark theme">
+            ☾
+        </button>
+
+        <button
+            class="ide-btn square-btn"
+            id="undoBtn"
+            title="Undo (Ctrl+Z)"
+            aria-label="Undo">
+            ↶
+        </button>
+
+        <button
+            class="ide-btn square-btn"
+            id="redoBtn"
+            title="Redo (Ctrl+Y)"
+            aria-label="Redo">
+            ↷
+        </button>
+
+        <button
+            class="ide-btn square-btn"
+            id="fullscreenBtn"
+            title="Toggle fullscreen"
+            aria-label="Toggle fullscreen">
+            □
+        </button>
+        
+        <div class="sidebar-divider" aria-hidden="true"></div>
+
+        <button
+            class="ide-btn lang-btn active-lang"
+            id="cBtn"
+            title="Switch to C"
+            aria-label="C language"
+            aria-pressed="true">
+            C
+        </button>
+
+        <button
+            class="ide-btn lang-btn"
+            id="cppBtn"
+            title="Switch to C++"
+            aria-label="C++ language"
+            aria-pressed="false">
+            C++
+        </button>
+
+        <button
+            class="ide-btn lang-btn"
+            id="javaBtn"
+            title="Switch to Java"
+            aria-label="Java language"
+            aria-pressed="false">
+            Java
+        </button>
+
+        <button
+            class="ide-btn lang-btn"
+            id="pythonBtn"
+            title="Switch to Python"
+            aria-label="Python language"
+            aria-pressed="false">
+            Py
+        </button>
+
+        <button
+            class="ide-btn lang-btn"
+            id="sqlBtn"
+            title="Switch to SQL"
+            aria-label="SQL language"
+            aria-pressed="false">
+            SQL
+        </button>
+
+        <div class="sidebar-divider" aria-hidden="true"></div>
+
+        <button
+            class="ide-btn square-btn"
+            id="clearScreenBtn"
+            title="Clear editor and output"
+            aria-label="Clear editor and output">
+            CLS
+        </button>
+
+    </aside>
+
+    <section class="editor-container" aria-label="Code editor">
+
+        <div class="editor-header">
+
+            <div class="file-name" id="fileName" aria-label="Current file">
+                main.c
+            </div>
+
+            <div class="editor-title" aria-hidden="true">
+                coding arena
+            </div>
+
+        </div>
+
+        <div class="editor-wrapper">
+
+            <div id="editor" role="textbox" aria-label="Monaco code editor" aria-multiline="true"></div>
+
+            <button
+                id="runBtn"
+                class="ide-btn execute-btn"
+                title="Run code (Ctrl+Enter)"
+                aria-label="Execute code (Ctrl+Enter)">
+                execute
+            </button>
+
+        </div>
+
+    </section>
+
+    <div
+        id="divider"
+        role="separator"
+        aria-label="Resize panels"
+        aria-orientation="vertical"
+        tabindex="0">
+    </div>
+
+    <section class="output-container" aria-label="Program output">
+
+        <div class="output-header">
+
+            <div class="output-title">output</div>
+
+            <button
+                id="clearOutputBtn"
+                class="ide-btn outline-btn"
+                aria-label="Clear output">
+                clear
+            </button>
+
+        </div>
+
+        <pre id="output" aria-live="polite" aria-label="Code output">just happy things</pre>
+
+    </section>
+
+</main>
+
+<footer>
+
+    <span id="status" aria-live="polite">
+        <b>© 2026 happinama. All rights reserved.</b>
+    </span>
+
+    <img
+        src="logo_f.png"
+        alt="happinama"
+        class="footer-logo"
+        loading="lazy">
+
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs/loader.min.js"></script>
+<script src="editor.js"></script>
+<script src="layout.js"></script>
+<script src="header_info.js"></script>
+
+</body>
+</html>
