@@ -6,5 +6,7 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
-      - key: RAPIDAPI_KEY
-        sync: false
+      - key: JUDGE0_URL
+        value: https://ce.judge0.com
+      - key: JUDGE0_AUTH_TOKEN
+        value: ""          # leave blank; set only when self-hosting with auth
