@@ -7,7 +7,7 @@ require.config({
 let editor;
 let currentLanguage="c";
 
-const BACKEND_URL="https://happinama2ide.onrender.com";
+const BACKEND_URL="https://happinama2ide-7jpz.onrender.com";
 
 const templates={
     c:`#include <stdio.h>
