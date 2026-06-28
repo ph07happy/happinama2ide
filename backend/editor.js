@@ -191,6 +191,35 @@ function initEditorPinchZoom(){
     wrapper.addEventListener("dblclick",resetTransform);
 }
 
+function formatOutput(raw,language){
+    const lines=raw.split("\n");
+    const result = [];
+
+    for(const line of lines){
+        const compilerMatch=line.match(
+            /^(?:.*?):(\d+):(\d+):\s*(error|warning|note):\s*(.+)$/i
+        );
+
+        if(compilerMatch){
+            const lineNum=compilerMatch[1];
+            const col=compilerMatch[2];
+            const type=compilerMatch[3].toLowerCase();
+            const msg=compilerMatch[4];
+            const prefix=type==="error"?"✕":type==="warning"?"⚠":"→";
+            result.push('${prefix} line ${lineNum}, col ${col}: ${msg}');
+            continue;
+        }
+
+        const pyMatch=line.match(/^\s*File\s+".*?",\s+line\s+(\d+)/i);
+        if(pyMatch){
+           result.push(`→ line ${pyMatch[1]}`);
+            continue;
+        }
+        result.push(line);
+    }
+    return result.join("\n");
+}
+
 async function executeProgram(){
 
     if(!editor) return;
@@ -226,7 +255,7 @@ async function executeProgram(){
         }
 
         const data=await res.json();
-        output.textContent=data.output;
+        output.textContent=formatOutput(data.output,currentLanguage);
 
         const ok=data.status==="Accepted";
         const tle=data.status==="Time Limit Exceeded";
