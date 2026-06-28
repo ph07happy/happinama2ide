@@ -1,4 +1,5 @@
 import os
+import base64
 import httpx
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -32,7 +33,6 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://happinama2ide.vercel.app",
-        "https://happinama-ide.vercel.app",
         "http://localhost:5500",
         "http://127.0.0.1:5500"
     ],
@@ -44,6 +44,17 @@ class CodeRequest(BaseModel):
     language: str
     source_code: str
     stdin: str = ""
+
+def b64encode(text:str)->str:
+    return base64.b64encode(text.encode()).decode()
+
+def b64decode(text:str)->str:
+    if not text:
+        return ""
+    try:
+        return base64.b64decode(text).decode("utf-8",errors="replace")
+    except Exception:
+        return text
 
 @app.get("/")
 def root():
@@ -62,9 +73,9 @@ async def execute(request: Request, body: CodeRequest):
         )
 
     payload = {
-        "source_code": body.source_code,
+        "source_code": b64encode(body.source_code),
         "language_id": language_id,
-        "stdin": body.stdin,
+        "stdin": b64encode(body.stdin),
         "cpu_time_limit": 5,
         "memory_limit": 262144,
         "wall_time_limit": 10
@@ -80,7 +91,7 @@ async def execute(request: Request, body: CodeRequest):
     async with httpx.AsyncClient(timeout=15) as client:
         try:
             submit = await client.post(
-                f"{JUDGE0_URL}/submissions?wait=true&base64_encoded=false",
+                f"{JUDGE0_URL}/submissions?wait=true&base64_encoded=true",
                 json=payload,
                 headers=headers
             )
@@ -101,9 +112,9 @@ async def execute(request: Request, body: CodeRequest):
 
     result = submit.json()
 
-    stdout         = result.get("stdout")         or ""
-    stderr         = result.get("stderr")         or ""
-    compile_output = result.get("compile_output") or ""
+    stdout         = b64decode(result.get("stdout")         or "")
+    stderr         = b64decode(result.get("stderr")         or "")
+    compile_output = b64decode(result.get("compile_output") or "")
     status         = result.get("status", {}).get("description", "Unknown")
     time_taken     = result.get("time")   or "—"
     memory         = result.get("memory") or "—"
