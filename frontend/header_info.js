@@ -28,7 +28,7 @@ async function fetchLocationAndWeather(){
 
     try{
 
-        const geoRes=await fetch("https://ip-api.com/json/?fields=status,city,lat,lon");
+        const geoRes=await fetch("https://ip-api.com/json/?fields=status,lat,lon");
         const geo=await geoRes.json();
 
         if(geo.status!=="success") throw new Error("geo failed");
@@ -44,7 +44,7 @@ async function fetchLocationAndWeather(){
 
         const temp=Math.round(weather.current.temperature_2m);
 
-        headerWeather.textContent=`${temp}°C | ${city} | ${lat}, ${lon}`;
+        headerWeather.textContent=`${temp}°C | ${CITY_OVERRIDE} | ${lat}, ${lon}`;
 
     }catch(e){
 
