@@ -90,9 +90,13 @@ async def execute(request: Request, body: CodeRequest):
             raise HTTPException(status_code=502, detail="Judge0 unreachable")
 
         except httpx.HTTPStatusError as e:
+            try:
+                j0_detail=e.response.json()
+            except Exception:
+                j0_detail=e.response.text
             raise HTTPException(
                 status_code=502,
-                detail=f"Judge0 error: {e.response.status_code}"
+                detail=f"Judge0 error: {e.response.status_code} — {j0_detail}"
             )
 
     result = submit.json()
