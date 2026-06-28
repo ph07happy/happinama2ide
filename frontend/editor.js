@@ -229,9 +229,18 @@ async function executeProgram(){
         output.textContent=data.output;
 
         const ok=data.status==="Accepted";
-        status.innerHTML=ok
-            ?"<b>executed successfully.</b>"
-            :`<b>${data.status}</b>`;
+        const tle=data.status==="Time Limit Exceeded";
+        const mle=data.status==="Memory Limit Exceeded";
+
+        if(ok){
+            status.innerHTML="<b>executed successfully.</b>";
+        }else if(tle){
+            status.innerHTML="<b>time limit exceeded — check for infinite loops.</b>";
+        }else if(mle){
+            status.innerHTML="<b>memory limit exceeded.</b>";
+        }else{
+            status.innerHTML=`<b>${data.status}</b>`;
+        }
 
     }catch(e){
 
