@@ -4,7 +4,7 @@ const headerWeather=document.getElementById("headerWeather");
 const DAYS=["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
 const MONTHS=["january","february","march","april","may","june",
               "july","august","september","october","november","december"];
-const CITY_OVERRIDE="greater noida";
+const CITY_OVERRIDE="saharanpur";
 
 function updateDateTime(){
     const now=new Date();
